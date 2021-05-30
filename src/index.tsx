@@ -9,6 +9,7 @@ type Props = {
 
 type BoardState = {
   squares: string[];
+  xIsNext: boolean;
 };
 
 function Square(props: Props) {
@@ -24,6 +25,7 @@ class Board extends React.Component<{}, BoardState> {
     super(props);
     this.state = {
       squares: Array(9).fill(""),
+      xIsNext: true,
     };
   }
 
