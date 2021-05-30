@@ -15,21 +15,12 @@ type BoardState = {
   squares: string[];
 };
 
-class Square extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props: Props) {
+  return (
+    <button className="square" onClick={() => props.onClick()}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component<{}, BoardState> {
