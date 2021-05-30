@@ -7,10 +7,6 @@ type Props = {
   onClick: () => void;
 };
 
-type State = {
-  value: string | null;
-};
-
 type BoardState = {
   squares: string[];
 };
