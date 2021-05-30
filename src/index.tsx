@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 
 type Props = {
-  value: number;
+  value: string;
+  onClick: () => void;
 };
 
 type State = {
@@ -24,8 +25,8 @@ class Square extends React.Component<Props, State> {
 
   render() {
     return (
-      <button className="square" onClick={() => this.setState({ value: "X" })}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
@@ -46,7 +47,12 @@ class Board extends React.Component<{}, BoardState> {
   }
 
   renderSquare(i: number) {
-    return <Square value={i} />;
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
 
   render() {
