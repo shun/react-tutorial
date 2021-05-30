@@ -10,6 +10,10 @@ type State = {
   value: string | null;
 };
 
+type BoardState = {
+  squares: string[];
+};
+
 class Square extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
