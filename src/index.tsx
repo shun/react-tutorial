@@ -116,7 +116,15 @@ class Board extends React.Component<{}, BoardState> {
   }
 }
 
-class Game extends React.Component {
+class Game extends React.Component<{}, GameState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      histories: [{ squares: Array(9).fill("") }],
+      xIsNext: true,
+    };
+  }
+
   render() {
     return (
       <div className="game">
