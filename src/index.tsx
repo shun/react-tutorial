@@ -57,8 +57,8 @@ function calculateWinner(squares: string[]): string {
   return "";
 }
 
-class Board extends React.Component<{}, BoardState> {
-  constructor(props: {}) {
+class Board extends React.Component<BoardProps, BoardState> {
+  constructor(props: BoardProps) {
     super(props);
     this.state = {
       squares: Array(9).fill(""),
@@ -66,20 +66,11 @@ class Board extends React.Component<{}, BoardState> {
     };
   }
 
-  handleClick(i: number) {
-    const squares = this.state.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
-  }
-
   renderSquare(i: number) {
     return (
       <Square
         value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
@@ -118,6 +109,20 @@ class Game extends React.Component<{}, GameState> {
     };
   }
 
+  handleClick(i: number) {
+    const histories = this.state.histories;
+    const current = histories[histories.length - 1];
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? "X" : "O";
+    this.setState({
+      histories: histories.concat([{ squares: squares }]),
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
   render() {
     const histories = this.state.histories;
     const current = histories[histories.length - 1];
@@ -131,7 +136,10 @@ class Game extends React.Component<{}, GameState> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+          />
         </div>
 
         <div className="game-info">
