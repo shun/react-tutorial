@@ -12,6 +12,15 @@ type BoardState = {
   xIsNext: boolean;
 };
 
+type GameHistory = {
+  squares: string[];
+};
+
+type GameState = {
+  histories: GameHistory[];
+  xIsNext: boolean;
+};
+
 function Square(props: Props) {
   return (
     <button className="square" onClick={() => props.onClick()}>
