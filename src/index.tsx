@@ -23,6 +23,7 @@ type GameHistory = {
 
 type GameState = {
   histories: GameHistory[];
+  stepNumber: number;
   xIsNext: boolean;
 };
 
@@ -105,12 +106,13 @@ class Game extends React.Component<{}, GameState> {
     super(props);
     this.state = {
       histories: [{ squares: Array(9).fill("") }],
+      stepNumber: 0,
       xIsNext: true,
     };
   }
 
   handleClick(i: number) {
-    const histories = this.state.histories;
+    const histories = this.state.histories.slice(0, this.state.stepNumber + 1);
     const current = histories[histories.length - 1];
     const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
@@ -119,16 +121,21 @@ class Game extends React.Component<{}, GameState> {
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
       histories: histories.concat([{ squares: squares }]),
+      stepNumber: histories.length,
       xIsNext: !this.state.xIsNext,
     });
   }
 
   jumpTo(move: number) {
+    this.setState({
+      stepNumber: move,
+      xIsNext: move % 2 === 0,
+    });
   }
 
   render() {
     const histories = this.state.histories;
-    const current = histories[histories.length - 1];
+    const current = histories[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = histories.map((step: GameHistory, move: number) => {
