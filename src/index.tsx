@@ -7,6 +7,11 @@ type Props = {
   onClick: () => void;
 };
 
+type BoardProps = {
+  squares: string[];
+  onClick: (i: number) => void;
+};
+
 type BoardState = {
   squares: string[];
   xIsNext: boolean;
