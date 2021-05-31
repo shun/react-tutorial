@@ -85,20 +85,8 @@ class Board extends React.Component<{}, BoardState> {
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = `Winner: ${winner}`;
-    } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-    }
-
     return (
       <div>
-        <div>
-          <div className="status">{status}</div>
-        </div>
-
         <div>
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -131,6 +119,15 @@ class Game extends React.Component<{}, GameState> {
   }
 
   render() {
+    const histories = this.state.histories;
+    const current = histories[histories.length - 1];
+    const winner = calculateWinner(current.squares);
+    let status;
+    if (winner) {
+      status = `Winner: ${winner}`;
+    } else {
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+    }
     return (
       <div className="game">
         <div className="game-board">
@@ -138,7 +135,7 @@ class Game extends React.Component<{}, GameState> {
         </div>
 
         <div className="game-info">
-          <div>{/* status */}</div>
+          <div>{status}</div>
           <ol>{/* TODO */}</ol>
         </div>
       </div>
