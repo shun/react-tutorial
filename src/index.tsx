@@ -58,19 +58,11 @@ function calculateWinner(squares: string[]): string {
   return "";
 }
 
-class Board extends React.Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(""),
-      xIsNext: true,
-    };
-  }
-
+class Board extends React.Component<BoardProps> {
   renderSquare(i: number) {
     return (
       <Square
-        value={this.state.squares[i]}
+        value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
     );
