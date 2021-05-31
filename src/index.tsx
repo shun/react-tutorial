@@ -123,6 +123,9 @@ class Game extends React.Component<{}, GameState> {
     });
   }
 
+  jumpTo(move: number) {
+  }
+
   render() {
     const histories = this.state.histories;
     const current = histories[histories.length - 1];
